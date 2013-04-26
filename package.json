@@ -1,0 +1,27 @@
+{
+  "name": "deference",
+  "description": "Utilities for jQuery's Deferred object.",
+  "version": "1.0.0",
+  "author": "Nathan Bryan <nathan.bryan@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "jQuery",
+    "Deferred"
+  ],
+  "main": "deference.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "minify": "echo \"Blah\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nbryan/deference.git"
+  },
+  "dependencies": {
+    "jquery": ">= 1.5"
+  },
+  "devDependencies": {
+    "grunt": "~ 0.4.1",
+    "grunt-contrib-uglify": "~0.2.0"
+  }
+}
