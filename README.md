@@ -22,7 +22,7 @@ Parallel and serial are similar to `$.each()` in that they iterate through an ar
 item to a function. The main difference is that the function must return a deferred object (or a
 promise). When all the inner deferreds are resolved, then the outer deferred is resolved
 (or rejected). After each iteration the outer deferred is also notified with the percentage of
-iteractions completed.
+iterations completed.
 
 ### Parallel
 
@@ -79,5 +79,5 @@ $.serial(items, function(i) {
 ## About
 
 Deference was written and is maintained by me, [Nathan Bryan](https://github.com/nbryan). It is
-freely available under the MIT liscense. If you find it useful, let me know! Or submit a pull
+freely available under the MIT license. If you find it useful, let me know! Or submit a pull
 request if you can improve it.
