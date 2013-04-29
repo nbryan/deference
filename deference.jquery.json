@@ -1,0 +1,25 @@
+{
+  "name": "deference",
+  "title": "Deference",
+  "description": "Utilities for jQuery's Deferred object.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nathan Bryan",
+    "email": "nathan.bryan@gmail.com",
+    "url": "https://github.com/nbryan"
+  },
+  "homepage": "https://github.com/nbryan/deference",
+  "keywords": [
+    "jQuery",
+    "Deferred"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">= 1.5"
+  }
+}
