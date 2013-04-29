@@ -3,18 +3,20 @@
 Deference is a set of three utility methods for use with
 [jQuery's Deferred ojbect](http://api.jquery.com/category/deferred-object/). They're similar to
 jQuery's built in `$.wait()` method in that they simply compose more complex deferred patterns into
-a simple and reusable method.
+simple and reusable methods.
 
-## Usage
+## Installation
 
-Require jQuery like you normall would, and then include Deference.
+Require jQuery like you normall would, then include Deference.
 
 ```html
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="deference.js"></script>
 ```
 
-It simply adds three functions to the jQuery object: parallel, serial, and wait.
+## Usage
+
+Deference simply adds three functions to the jQuery object: parallel, serial, and wait.
 
 Parallel and serial are similar to `$.each()` in that they iterate through an array passing each
 item to a function. The main difference is that the function must return a deferred object (or a
@@ -62,14 +64,20 @@ $.serial(items, function(i) {
 Wait waits for a specified period of time before resolving. The default is 1000ms. If you'd like to
 execute some logic after another deferred finishes _and_ after a specified period of time, use wait.
 
-Sound pretty useless? Why would anyone use this? In my case I need to post many things to Facebook
-at a time. Often a thousand posts or more. Using serial in combination with wait prevents me from
-being rate-limited.
+Sound pretty useless, right? Why would anyone use this? In my case I need to post many things to
+Facebook at a time. Often a thousand posts or more. Using serial in combination with wait prevents
+Facebook from rate-limiting my posts.
 
 ```javascript
 var items = [1, 2, 3, 4];
 
 $.serial(items, function(i) {
-  return $.when(postToFacebook(i), wait(500));
+  return $.when(postToFacebook(i), $.wait(500));
 })
 ```
+
+## About
+
+Deference was written and is maintained by me, [Nathan Bryan](https://github.com/nbryan). It is
+freely available under the MIT liscense. If you find it useful, let me know! Or submit a pull
+request if you can improve it.
