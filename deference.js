@@ -1,5 +1,5 @@
 /*
-    Deference 1.0.0
+    Deference 1.0.1
     Copyright (c) 2013 Nathan Bryan
     Released under the MIT license
     https://github.com/nbryan/deference
