@@ -50,7 +50,11 @@
           fn(items[i]).done(function() {
             i++;
             d.notify(i / items.length);
-            jQuery.serial(items, fn, i, d);
+            if (i == items.length) {
+              d.resolve()
+            } else {
+              jQuery.serial(items, fn, i, d);
+            }
           }).fail(function() {
             d.reject();
           });
