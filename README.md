@@ -34,8 +34,8 @@ var items = [1, 2, 3, 4];
 
 $.parallel(items, function(i) {
   return $.wait(500); // Do something more interesting here
-}).progress(function(p) {
-  console.log(p * 100 + '%'); // 25%, 50%, 75%, and 100% will be logged simultaneously
+}).progress(function(completed, total, percentage) {
+  console.log(percentage + '%'); // 25%, 50%, 75%, and 100% will be logged simultaneously
 }).done(function() {
   console.log('done!')
 });
@@ -52,8 +52,8 @@ var items = [1, 2, 3, 4];
 
 $.serial(items, function(i) {
   return $.wait(500); // Do something more interesting here
-}).progress(function(p) {
-  console.log(p * 100 + '%'); // 25%, 50%, 75%, and 100% will be logged one at a time
+}).progress(function(completed, total, percentage) {
+  console.log(percentage + '%'); // 25%, 50%, 75%, and 100% will be logged one at a time
 }).done(function() {
   console.log('done!');
 });
@@ -64,9 +64,9 @@ $.serial(items, function(i) {
 Wait waits for a specified period of time before resolving. The default is 1000ms. If you'd like to
 execute some logic after another deferred finishes _and_ after a specified period of time, use wait.
 
-Sound pretty useless, right? Why would anyone use this? In my case I need to post many things to
-Facebook at a time. Often a thousand posts or more. Using serial in combination with wait prevents
-Facebook from rate-limiting my posts.
+Sound pretty useless, right? Why would anyone use this? Imagine a case where you need to post many
+things to Facebook at a time without getting rate-limited. Using serial in combination with wait
+would prevent Facebook from rate-limiting your posts.
 
 ```javascript
 var items = [1, 2, 3, 4];
@@ -78,6 +78,6 @@ $.serial(items, function(i) {
 
 ## About
 
-Deference was written and is maintained by me, [Nathan Bryan](https://github.com/nbryan). It is
-freely available under the MIT license. If you find it useful, let me know! Or submit a pull
-request if you can improve it.
+Deference was written and is maintained [Nathan Bryan](https://github.com/nbryan). It is freely
+available under the MIT license. If you find it useful, let me know! Or submit a pull request if
+you can improve it.

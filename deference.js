@@ -21,7 +21,7 @@
           for (var i = 0; i < items.length; i++) {
             fn(items[i]).done(function() {
               completed++;
-              d.notify(completed / items.length);
+              d.notify(completed, items.length, completed / items.length * 100);
               if (completed == items.length) {
                 d.resolve();
               }
@@ -49,7 +49,7 @@
         if (items[i]) {
           fn(items[i]).done(function() {
             i++;
-            d.notify(i / items.length);
+            d.notify(i, items.length, i / items.length * 100);
             if (i == items.length) {
               d.resolve()
             } else {
