@@ -81,3 +81,7 @@ $.serial(items, function(i) {
 Deference was written and is maintained by [Nathan Bryan](https://github.com/nbryan). It is freely
 available under the MIT license. If you find it useful, let me know! Or submit a pull request if
 you can improve it.
+
+### Contributors
+
+Alejandro Ciniglio
