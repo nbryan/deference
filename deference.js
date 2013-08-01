@@ -1,5 +1,5 @@
 /*
-    Deference 1.0.1
+    Deference 1.1.0
     Copyright (c) 2013 Nathan Bryan
     Released under the MIT license
     https://github.com/nbryan/deference
@@ -23,10 +23,10 @@
               completed++;
               d.notify(completed, items.length, completed / items.length * 100);
               if (completed == items.length) {
-                d.resolve();
+                d.resolve.apply(d, arguments);
               }
             }).fail(function() {
-              d.reject();
+              d.reject.apply(d, arguments);
             });
           }
         } else {
@@ -51,12 +51,12 @@
             i++;
             d.notify(i, items.length, i / items.length * 100);
             if (i == items.length) {
-              d.resolve()
+              d.resolve.apply(d, arguments)
             } else {
               jQuery.serial(items, fn, i, d);
             }
           }).fail(function() {
-            d.reject();
+            d.reject.apply(d, arguments);
           });
         }
       } else {
