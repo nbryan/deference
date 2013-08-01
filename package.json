@@ -1,7 +1,7 @@
 {
   "name": "deference",
   "description": "Utilities for jQuery's Deferred object.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "Nathan Bryan <nathan.bryan@gmail.com>",
   "license": "MIT",
   "keywords": [
