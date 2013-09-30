@@ -76,6 +76,25 @@ $.serial(items, function(i) {
 })
 ```
 
+## Failure modes
+
+### Partial Failure / Success
+
+Deference supports treating partial failures as a success. `$.serial`
+and `$.parallel` both take an options hash, with a valid option being
+`threshhold`. This is the highest allowed number of failures, that
+will still consider the overall operation a success. For example, if
+at least half of the following calls succeed, the enclosing deferred
+will also succeed:
+
+```javascript
+var items = [1, 2, 3, 4];
+
+$.serial(items, function(i) {
+  return $.when(doSomethingInteresting(i));
+}, { threshhold: items.length / 2 });
+```
+
 ## About
 
 Deference was written and is maintained by [Nathan Bryan](https://github.com/nbryan). It is freely

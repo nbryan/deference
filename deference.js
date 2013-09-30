@@ -13,9 +13,14 @@
   }
 
   jQuery.extend({
-    parallel: function(items, fn) {
+    parallel: function(items, fn, options) {
       return jQuery.Deferred(function(d) {
-        var completed = 0;
+        var completed = 0
+          , failures = 0
+          , failure_objects = [];
+        options = typeof options !== 'undefined' ? options : {};
+
+        threshhold = typeof options.threshhold !== 'undefined' ? options.threshhold : 0;
 
         if (items.length > 0) {
           for (var i = 0; i < items.length; i++) {
@@ -25,8 +30,18 @@
               if (completed == items.length) {
                 d.resolve.apply(d, arguments);
               }
-            }).fail(function() {
-              d.reject.apply(d, arguments);
+            }).fail(function(failure) {
+              failures++;
+              completed++;
+
+              if (typeof failure !== 'undefined') {
+                failure_objects.push(failure);
+                arguments[0] = failure_objects;
+              }
+
+              if (failures > threshhold) {
+                d.reject.apply(d, arguments);
+              }
             });
           }
         } else {
@@ -37,33 +52,49 @@
       });
     },
 
-    serial: function(items, fn, i, d) {
-      if (i == null) {
-        i = 0;
-      }
-      if (d == null) {
-        d = jQuery.Deferred();
+    serial: function(items, fn, options) {
+      options = typeof options !== 'undefined' ? options : {};
+
+      options.threshhold = typeof options.threshhold !== 'undefined' ? options.threshhold : 0;
+      options.index = typeof options.index !== 'undefined' ? options.index : 0;
+      options.deferred = typeof options.deferred !== 'undefined' ? options.deferred : jQuery.Deferred();
+      options.failures = typeof options.failures !== 'undefined' ? options.failures : 0;
+      options.failure_objects = typeof options.failure_objects !== 'undefined' ? options.failure_objects : [];
+
+      var succeed = function() {
+        options.index++;
+        options.deferred.notify(options.index, items.length, options.index / items.length * 100);
+        if (options.index == items.length) {
+          options.deferred.resolve.apply(options.deferred, arguments)
+        } else {
+          jQuery.serial(items, fn, options);
+        }
       }
 
       if (items.length > 0) {
-        if (items[i]) {
-          fn(items[i]).done(function() {
-            i++;
-            d.notify(i, items.length, i / items.length * 100);
-            if (i == items.length) {
-              d.resolve.apply(d, arguments)
-            } else {
-              jQuery.serial(items, fn, i, d);
+        if (items[options.index]) {
+          fn(items[options.index]).done(function() {
+            succeed();
+          }).fail(function(failure) {
+            options.failures++;
+
+            if (typeof failure !== 'undefined') {
+                options.failure_objects.push(failure);
+                arguments[0] = options.failure_objects;
             }
-          }).fail(function() {
-            d.reject.apply(d, arguments);
+
+            if (options.failures > options.threshhold) {
+              options.deferred.reject.apply(options.deferred, arguments);
+            } else {
+              succeed();
+            }
           });
         }
       } else {
-        d.resolve();
+        options.deferred.resolve();
       }
 
-      return d.promise();
+      return options.deferred.promise();
     },
 
     wait: function(ms) {
