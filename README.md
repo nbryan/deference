@@ -1,7 +1,7 @@
 # Deference
 
 Deference is a set of three utility methods for use with
-[jQuery's Deferred ojbect](http://api.jquery.com/category/deferred-object/). They're similar to
+[jQuery's Deferred object](http://api.jquery.com/category/deferred-object/). They're similar to
 jQuery's built in `$.when()` method in that they simply compose more complex deferred patterns into
 simple and reusable methods.
 
